@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevToolBox - Curated Developer Tools</title>
+    <link rel="icon" href="toolbox.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="#" class="logo">
+            <div class="logo-icon">
+              <i class="fas fa-toolbox"></i>
+            </div>
+            DevToolBox
+          </a>
+          <div class="nav-actions">
+            <button class="btn-primary" id="getRecommendations">
+              <i class="fas fa-magic"></i>
+              Get Recommendations
+            </button>
+            <button class="btn-primary" id="suggestTool">
+              <i class="fas fa-wrench"></i>
+              Suggest Tool
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+          <h1>DevToolBox</h1>
+          <p>
+            Discover, explore, and bookmark the best developer tools, AI
+            services, and productivity utilities. Curated for developers, by
+            developers.
+          </p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-target="1000">0</span>
+              <div class="stat-label">Total Tools</div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="750">0</span>
+              <div class="stat-label">Free Tools</div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="100">0</span>
+              <div class="stat-label">Categories</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+          <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search tools, categories, or keywords..."
+              id="searchInput"
+            />
+            <kbd class="search-shortcut">/</kbd>
+          </div>
+        </section>
+
+        <!-- Filters -->
+        <section class="filters">
+          <div class="filter-group">
+            <span class="filter-tag active" data-filter="all">All</span>
+            <span class="filter-tag" data-filter="bookmarks">Bookmarks</span>
+            <span class="filter-tag" data-filter="ai">AI</span>
+            <span class="filter-tag" data-filter="frontend">Frontend</span>
+            <span class="filter-tag" data-filter="backend">Backend</span>
+            <span class="filter-tag" data-filter="developer-tools"
+              >Developer Tools</span
+            >
+            <span class="filter-tag" data-filter="apis">APIs</span>
+            <span class="filter-tag" data-filter="database">Database</span>
+            <span class="filter-tag" data-filter="debugging">Debugging</span>
+            <span class="filter-tag" data-filter="testing">Testing</span>
+            <span class="filter-tag" data-filter="deployment">Deployment</span>
+            <span class="filter-tag" data-filter="version-control"
+              >Version Control</span
+            >
+            <span class="filter-tag" data-filter="package-manager"
+              >Package Manager</span
+            >
+            <span class="filter-tag" data-filter="devops">DevOps</span>
+            <span class="filter-tag" data-filter="automation">Automation</span>
+            <span class="filter-tag" data-filter="monitoring">Monitoring</span>
+            <span class="filter-tag" data-filter="performance">
+              Performance
+            </span>
+            <span class="filter-tag" data-filter="security">Security</span>
+            <span class="filter-tag" data-filter="cli">CLI</span>
+            <span class="filter-tag" data-filter="design">Design</span>
+            <span class="filter-tag" data-filter="documentation">
+              Documentation
+            </span>
+            <span class="filter-tag" data-filter="productivity"
+              >Productivity</span
+            >
+            <span class="filter-tag" data-filter="collaboration">
+              Collaboration
+            </span>
+            <span class="filter-tag" data-filter="mobile">Mobile</span>
+            <span class="filter-tag" data-filter="cloud">Cloud</span>
+            <span class="filter-tag" data-filter="analytics">Analytics</span>
+            <div class="filter-separator"></div>
+            <div class="filter-group">
+              <span class="filter-tag" data-price="free">Free</span>
+              <span class="filter-tag" data-price="paid">Paid</span>
+              <span class="filter-tag" data-price="open-source"
+                >Open Source</span
+              >
+              <span class="filter-tag" data-price="freemium">Freemium</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tools Grid -->
+        <section class="tools-grid" id="toolsGrid">
+          <!-- Tool cards will be dynamically generated -->
+        </section>
+      </div>
+    </main>
+
+    <!-- Recommendations Modal -->
+    <div class="modal" id="recommendationsModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">AI Tool Recommendations</h2>
+          <button class="close-btn" id="closeRecommendationsModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="recommendations-form">
+          <div class="form-group">
+            <label class="form-label" for="projectDescription"
+              >What are you planning to build?</label
+            >
+            <textarea
+              class="form-textarea"
+              id="projectDescription"
+              placeholder="e.g., A full-stack e-commerce website with React frontend, Node.js backend, and real-time chat..."
+              rows="4"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="experienceLevel"
+              >Experience Level</label
+            >
+            <div class="custom-select">
+              <button
+                type="button"
+                class="select-button placeholder"
+                id="experienceSelectButton"
+              >
+                <span id="experienceSelectValue"
+                  >Select your experience level</span
+                >
+                <i class="fas fa-chevron-down select-arrow"></i>
+              </button>
+              <div class="select-dropdown" id="experienceSelectDropdown">
+                <div class="select-option" data-value="beginner">
+                  Beginner (0-1 years)
+                </div>
+                <div class="select-option" data-value="intermediate">
+                  Intermediate (1-3 years)
+                </div>
+                <div class="select-option" data-value="advanced">
+                  Advanced (3+ years)
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="experienceLevel" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Project Type</label>
+            <div class="project-type-tags">
+              <span class="project-type-tag" data-type="web-app">Web App</span>
+              <span class="project-type-tag" data-type="mobile-app"
+                >Mobile App</span
+              >
+              <span class="project-type-tag" data-type="api">API/Backend</span>
+              <span class="project-type-tag" data-type="desktop"
+                >Desktop App</span
+              >
+              <span class="project-type-tag" data-type="ai-ml"
+                >AI/ML Project</span
+              >
+              <span class="project-type-tag" data-type="devops"
+                >DevOps/Infrastructure</span
+              >
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn-primary"
+            id="generateRecommendations"
+          >
+            <i class="fas fa-wand-magic-sparkles"></i>
+            Generate Recommendations
+          </button>
+        </div>
+        <div
+          class="recommendations-results"
+          id="recommendationsResults"
+          style="display: none"
+        >
+          <div class="recommendations-header">
+            <h3>Recommended Tool Stack</h3>
+            <button class="btn-secondary" id="newRecommendation">
+              <i class="fas fa-redo"></i>
+              New Recommendation
+            </button>
+          </div>
+          <div id="recommendedTools"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggest Tool Modal -->
+    <div class="modal" id="suggestToolModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Suggest a Tool</h2>
+          <button class="close-btn" id="closeModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="suggestToolForm">
+          <div class="form-group">
+            <label class="form-label" for="toolName">Tool Name</label>
+            <input type="text" class="form-input" id="toolName" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="toolDescription">Description</label>
+            <textarea
+              class="form-textarea"
+              id="toolDescription"
+              placeholder="Brief description of what this tool does..."
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="toolCategory">Category</label>
+            <div class="custom-select">
+              <button
+                type="button"
+                class="select-button placeholder"
+                id="selectButton"
+              >
+                <span id="selectValue">Select a category</span>
+                <i class="fas fa-chevron-down select-arrow"></i>
+              </button>
+              <div class="select-dropdown" id="selectDropdown">
+                <div class="select-option" data-value="ai">
+                  AI & Machine Learning
+                </div>
+                <div class="select-option" data-value="frontend">
+                  Frontend Development
+                </div>
+                <div class="select-option" data-value="backend">
+                  Backend Development
+                </div>
+                <div class="select-option" data-value="apis">
+                  APIs & Integration
+                </div>
+                <div class="select-option" data-value="database">
+                  Database & Storage
+                </div>
+                <div class="select-option" data-value="debugging">
+                  Debugging & Profiling
+                </div>
+                <div class="select-option" data-value="testing">
+                  Testing & QA
+                </div>
+                <div class="select-option" data-value="deployment">
+                  Deployment & Hosting
+                </div>
+                <div class="select-option" data-value="devops">
+                  DevOps & Infrastructure
+                </div>
+                <div class="select-option" data-value="monitoring">
+                  Monitoring & Analytics
+                </div>
+                <div class="select-option" data-value="security">
+                  Security & Privacy
+                </div>
+                <div class="select-option" data-value="cli">
+                  CLI & Terminal Tools
+                </div>
+                <div class="select-option" data-value="design">
+                  Design & UI/UX
+                </div>
+                <div class="select-option" data-value="productivity">
+                  Productivity & Workflow
+                </div>
+                <div class="select-option" data-value="mobile">
+                  Mobile Development
+                </div>
+                <div class="select-option" data-value="cloud">
+                  Cloud Services
+                </div>
+                <div class="select-option" data-value="analytics">
+                  Analytics & Tracking
+                </div>
+                <div class="select-option" data-value="documentation">
+                  Documentation
+                </div>
+                <div class="select-option" data-value="collaboration">
+                  Collaboration
+                </div>
+                <div class="select-option" data-value="version-control">
+                  Version Control
+                </div>
+                <div class="select-option" data-value="performance">
+                  Performance Optimization
+                </div>
+                <div class="select-option" data-value="automation">
+                  Automation & Scripting
+                </div>
+                <div class="select-option" data-value="blockchain">
+                  Blockchain & Web3
+                </div>
+                <div class="select-option" data-value="iot">IoT & Hardware</div>
+                <div class="select-option" data-value="data-science">
+                  Data Science & ML
+                </div>
+                <div class="select-option" data-value="content-management">
+                  Content Management
+                </div>
+                <div class="select-option" data-value="e-commerce">
+                  E-commerce
+                </div>
+                <div class="select-option" data-value="networking">
+                  Networking
+                </div>
+                <div class="select-option" data-value="virtualization">
+                  Virtualization
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="toolCategory" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="toolUrl">Website URL</label>
+            <input type="url" class="form-input" id="toolUrl" required />
+          </div>
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-paper-plane"></i>
+            Submit Suggestion
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
